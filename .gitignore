@@ -1,0 +1,27 @@
+# .env cdk.out and __pycache__ folders are created at runtime when we setup the environment or run cdk commands.
+# They should not be check into the repo.
+*.swp
+package-lock.json
+__pycache__
+.pytest_cache
+.env
+*.egg-info
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# Below files and folders are created at runtime when we setup the environment or run compliance check command.
+# They should not be checked into the repo.
+**/.terraform/
+terraform.tfstate
+**/terraform.tfstate
+**/terraform.tfstate.backup
+
+# Local VSCode IDE related files
+**/.vscode
+.DS_Store
+
+# Terraform plan files
+*.out
+*.out.json

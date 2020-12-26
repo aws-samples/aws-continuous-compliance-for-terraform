@@ -1,0 +1,5 @@
+{
+  "COMPLIANCE_ACCOUNT": {
+      "AWS_ACCOUNT_ID": "<compliance-account-id>"
+  }
+}

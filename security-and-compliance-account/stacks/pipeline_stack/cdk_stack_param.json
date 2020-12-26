@@ -1,0 +1,11 @@
+{
+  "CODE_COMMIT_SOURCE_REPO_NAME": "security-and-compliance-code",
+  "CODE_COMMIT_SOURCE_REPO_BRANCH": "develop",
+  "TERRAFORM_APPLICATION_WORKLOADS":[
+    {
+      "GIT_REPO_URL": "https://git-codecommit.<region>.amazonaws.com/v1/repos/workload",
+      "CROSS_ACCOUNT_ROLE_ARN": "arn:aws:iam::<workload-account-id>:role/allow-terraform-workload-pull",
+      "APP_ID": "App1"
+    }
+  ]
+}

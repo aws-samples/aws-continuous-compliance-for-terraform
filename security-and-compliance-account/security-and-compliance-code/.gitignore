@@ -1,0 +1,19 @@
+# Below files and folders are created at runtime when we setup the environment or run compliance check command.
+# They should not be checked into the repo.
+venv/
+**/.terraform/
+terraform.tfstate
+__pycache__/
+**/terraform.tfstate
+**/terraform.tfstate.backup
+reports/
+cucumber-html-reports/
+truist-compliance-check.zip
+
+# Local VSCode IDE related files
+**/.vscode
+.DS_Store
+
+# plan files
+*.out
+*.out.json

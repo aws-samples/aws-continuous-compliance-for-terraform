@@ -1,0 +1,7 @@
+{
+  "TERRAFORM_APPLICATION_WORKLOAD_ACCOUNTS": [
+    {
+      "AWS_ACCOUNT_ID": "<workload-account-id>"
+    }
+  ]
+}

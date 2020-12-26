@@ -1,0 +1,59 @@
+# Copyright 2019-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this
+# software and associated documentation files (the "Software"), to deal in the Software
+# without restriction, including without limitation the rights to use, copy, modify,
+# merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+# INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+
+    commands:
+      - echo "Install Prequisites"
+      - echo $CODE_COMMIT_SOURCE_REPO_NAME
+      - echo $CODE_COMMIT_SOURCE_BRANCH
+      - echo $CODE_COMMIT_TARGET_BRANCH
+      - echo $PATH
+      - yum install jq -y
+      - chmod +x aws-profile-setup.sh
+      - mkdir -p "$HOME/output-artifacts"
+  build:
+    commands:
+      # Create pull request
+      - echo "Create Pull Request"
+      - |
+        var_pull_request_json=$(aws codecommit create-pull-request \
+        --title "Auto pull request by compliance pipeline" \
+        --description "Please review these changes" \
+        --client-request-token $(date '+%Y%m%d%H%M%S%3N') \
+        --targets repositoryName=$CODE_COMMIT_SOURCE_REPO_NAME,sourceReference=$CODE_COMMIT_SOURCE_BRANCH,destinationReference=$CODE_COMMIT_TARGET_BRANCH)
+      - echo $var_pull_request_json >> $HOME/output-artifacts/pull_request.json
+      - var_pull_request_id=$(echo $var_pull_request_json | jq -r ".pullRequest.pullRequestId")
+      # Merge above pull request
+      - echo "Merge Pull Request"
+      - echo "Merging commit id $CODEBUILD_RESOLVED_SOURCE_VERSION"
+      - |
+        var_merge_response_json=$(aws codecommit merge-branches-by-fast-forward \
+        --source-commit-specifier $CODE_COMMIT_SOURCE_BRANCH \
+        --destination-commit-specifier $CODE_COMMIT_TARGET_BRANCH \
+        --repository-name $CODE_COMMIT_SOURCE_REPO_NAME)
+      - echo $var_merge_response_json >> $HOME/output-artifacts/merge_response.json
+      - ls -l $HOME/output-artifacts
+artifacts:
+  files:
+    # Artifact containing pull request and merge response jsons
+    - '**/*'
+  discard-paths: no
+  base-directory: $HOME/output-artifacts
