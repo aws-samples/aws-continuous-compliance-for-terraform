@@ -1,6 +1,6 @@
 {
   "CODE_COMMIT_SOURCE_REPO_NAME": "workload",
-  "CODE_COMMIT_SOURCE_REPO_BRANCH": "master",
+  "CODE_COMMIT_SOURCE_REPO_BRANCH": "main",
   "COMPLIANCE_CODE": {
     "GIT_REPO_URL": "https://git-codecommit.<region>.amazonaws.com/v1/repos/security-and-compliance-code",
     "CROSS_ACCOUNT_ROLE_ARN": "arn:aws:iam::<compliance-account-id>:role/allow-compliance-code-pull",

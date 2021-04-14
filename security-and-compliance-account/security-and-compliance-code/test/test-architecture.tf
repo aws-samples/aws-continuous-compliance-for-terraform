@@ -45,7 +45,7 @@ resource "aws_iam_role" "ssm_tag_collector_role" {
 resource "aws_lambda_function" "ssm_tag_collector_lambda" {
   filename         = data.archive_file.ssm_tag_collector_zip.output_path
   function_name    = "ssm-tag-collector"
-  description      = "Send tags from the list of instances in the event context to the ssm-tag-manager lambda in master account."
+  description      = "Send tags from the list of instances in the event context to the ssm-tag-manager lambda in parent account."
   role             = aws_iam_role.ssm_tag_collector_role.arn
   handler          = "ssmTagCollector.lambda_handler"
   source_code_hash = base64sha256("ssmTagCollector.zip")

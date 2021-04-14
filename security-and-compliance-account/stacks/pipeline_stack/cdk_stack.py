@@ -410,12 +410,12 @@ class PipelineStack(core.Stack):
             role = code_build_role
         )
 
-        # Create code build project for merging compliance code into master branch
+        # Create code build project for merging compliance code into main branch
         code_build_code_merge = codebuild.PipelineProject(
             self,
             'CodeBuildForCodeMerge',
             build_spec = codebuild.BuildSpec.from_source_filename('buildspec-code-merge.yml'),
-            description = 'CodeBuild project for merging compliance code into master branch',
+            description = 'CodeBuild project for merging compliance code into main branch',
             environment = codebuild.BuildEnvironment(
                 build_image = codebuild.LinuxBuildImage.from_code_build_image_id(
                     'aws/codebuild/amazonlinux2-x86_64-standard:3.0'
@@ -522,7 +522,7 @@ class PipelineStack(core.Stack):
                         type = codebuild.BuildEnvironmentVariableType.PLAINTEXT
                     ),
                     'CODE_COMMIT_TARGET_BRANCH': codebuild.BuildEnvironmentVariable(
-                        value = 'master',
+                        value = 'main',
                         type = codebuild.BuildEnvironmentVariableType.PLAINTEXT
                     )
                 },
