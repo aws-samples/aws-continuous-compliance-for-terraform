@@ -322,6 +322,9 @@ class PipelineStack(core.Stack):
                         'iam:DeleteInstanceProfile',
                         'iam:AddRoleToInstanceProfile',
                         'iam:ListInstanceProfilesForRole',
+                        'iam:ListRolePolicies',
+                        'iam:ListAttachedRolePolicies',
+                        'iam:TagInstanceProfile',
                         'iam:RemoveRoleFromInstanceProfile',
                         'iam:DeleteRole'
                     ],

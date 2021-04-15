@@ -21,7 +21,7 @@ AWS_PROFILE=$1
 echo 'Target Profile: '$AWS_PROFILE
 
 # Install Prerequisites
-# python3 -m venv .env
+python3 -m venv .env
 source .env/bin/activate
 pip --version
 pip install -r requirements.txt

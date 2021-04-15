@@ -123,6 +123,9 @@ resource "aws_instance" "web" {
 resource "aws_iam_instance_profile" "test_profile" {
   name = "test_profile"
   role = "${aws_iam_role.role.name}"
+  tags = {
+    Name = "passtags"
+  }
 }
 
 resource "aws_iam_role" "role" {
