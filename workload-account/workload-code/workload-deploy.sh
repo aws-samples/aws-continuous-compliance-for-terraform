@@ -31,11 +31,11 @@ terraform init \
 -backend-config="bucket=${WORLOAD_STATEFILE_BUCKET_NAME}" \
 -backend-config="region=${AWS_DEFAULT_REGION}"
 
-if [ "${terraformAction}" == "apply" ]; then
+if [ $terraformAction = "apply" ]; then
     terraform apply -auto-approve \
         -var "region=${AWS_DEFAULT_REGION}"
     var_resp_code=$?
-elif [ "${terraformAction}" == "destroy" ]; then
+elif [ $terraformAction = "destroy" ]; then
     terraform destroy -force \
         -var "region=${AWS_DEFAULT_REGION}"
     var_resp_code=$?
@@ -46,7 +46,7 @@ fi
 
 
 # Handle reponse
-if [ $var_resp_code == 0 ]
+if [ $var_resp_code = 0 ]
 then
   echo Success
   exit 0
